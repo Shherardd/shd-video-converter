@@ -1,0 +1,120 @@
+.main-content{
+    display: flex;
+    margin: 0 auto;
+    padding: 20px 40px;
+    max-width: 1000px;
+    height: 100%;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+h1{
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+h1 span{
+    display: block;
+    color: #fff;
+}
+
+.main-body{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.main-body::after{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 50px);
+    background-color: rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 4px;
+}
+
+.main-body div {
+    z-index: 1;
+}
+
+.input-selector-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.input-selector-container label{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #f0f0f0;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.input-selector-container input{
+    padding: 1rem;
+    width: 100%;
+    background-color: #222;
+    color: #f99;
+    font-size: 1.5rem;
+}
+
+.input-selector-container button{
+    width: 12rem;
+    height: 100%;
+    font-size: 1.2rem;
+}
+
+.input-selector-container input,
+.input-selector-container button {
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    gap: 1rem;
+}
+
+#btn-convert-file{
+    background-color: #f19;
+    color: #fff;
+}
+
+#btn-convert-file:hover{
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+#btn-source-choose-file{
+    background-color: #fff;
+    color: #000;
+}
+
+#btn-source-choose-file:hover{
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+
+#btn-source-choose-file:disabled{
+    background-color: #999;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.progress-bar {
+    height: 5px;
+    background-color: greenyellow;
+    border-radius: 4px;
+    transition: width 0.3s ease-in-out;
+    width: 0px;
+}
