@@ -4,7 +4,10 @@ import (
 	"context"
 	"fmt"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"math/rand"
 	"os"
+	"os/exec"
+	"strconv"
 	"time"
 )
 
@@ -30,34 +33,37 @@ func (v *FileManager) GetFile() *File {
 	return &v.File
 }
 
-func (v *FileManager) ChooseFile() string {
+func (v *FileManager) ChooseFile() (string, error) {
+	fmt.Println("Choose file from back")
 	var defaultDir string
-	if v.File.Path != "" {
-		defaultDir = v.File.Path
-	} else {
-		defaultDir, _ = os.UserHomeDir()
-	}
+	defaultDir, _ = os.UserHomeDir()
 
 	openDialogOptions := runtime.OpenDialogOptions{
 		Title:            "Choose a file",
-		DefaultDirectory: defaultDir,
-		Filters: []runtime.FileFilter{
-			{"Videos", ".mov;*.mp4"},
-		},
+		DefaultDirectory: defaultDir + "/Movies",
 	}
 
 	path, err := runtime.OpenFileDialog(*v.ctx, openDialogOptions)
 	if err != nil {
-		fmt.Errorf("error opening file dialog: %s", err)
+		fmt.Println("error opening file dialog: ", err)
+		return "", err
 	}
+
 	v.File.Path = path
-	return path
+
+	return path, nil
 }
 
 func (v *FileManager) ChooseDirectory() string {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println("Error al obtener el directorio home:", err)
+		return "Error al obtener el directorio home"
+	}
+
 	openDialogOptions := runtime.OpenDialogOptions{
 		Title:            "Choose a directory",
-		DefaultDirectory: "/Users/sherard/Dev",
+		DefaultDirectory: home + "/Movies",
 	}
 
 	dir, err := runtime.OpenDirectoryDialog(*v.ctx, openDialogOptions)
@@ -68,14 +74,49 @@ func (v *FileManager) ChooseDirectory() string {
 	return dir
 }
 
-func (v *FileManager) SendProgress(progress float64) {
-	// Enviar el progreso al proceso renderer
-	runtime.EventsEmit(*v.ctx, "progress", progress)
+func (v *FileManager) Convert() (string, error) {
+	movPath := v.File.Path
 
-	//runtime.Window().Send("progress", progress)
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	randNum := r.Int()
+	mp4Path := v.OuputDirectory + "/out_" + strconv.Itoa(randNum) + ".mp4"
+
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println("Error al obtener el directorio home:", err)
+		return "error", err
+	}
+
+	ffmpegPath := home + "/shd/lib/ffmpeg"
+
+	cmd := exec.Command(ffmpegPath, "-i", movPath, mp4Path)
+
+	err = cmd.Run()
+	if err != nil {
+		fmt.Println("Error al convertir el archivo:", err)
+		return "error", err
+	}
+
+	fmt.Println("Archivo convertido con éxito!")
+	return "success", nil
 }
 
-// a SendProgress implementation that send progress from 0 to 100 in 10 steps (10, 20, 30, ..., 100)
+func (v *FileManager) GetHomeDir() (string, error) {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println("Error al obtener el directorio home:", err)
+		return "error", err
+	}
+	v.OuputDirectory = homeDir
+	return homeDir, nil
+}
+
+func (v *FileManager) SendProgress(progress float64) {
+	runtime.EventsEmit(*v.ctx, "progress", progress)
+}
+
 func (v *FileManager) SendProgressFake() {
 	for i := 0; i <= 10; i++ {
 		time.Sleep(1 * time.Second)

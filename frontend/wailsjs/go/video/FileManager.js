@@ -10,12 +10,20 @@ export function ChooseFile() {
   return window['go']['video']['FileManager']['ChooseFile']();
 }
 
+export function Convert() {
+  return window['go']['video']['FileManager']['Convert']();
+}
+
 export function GetFile() {
   return window['go']['video']['FileManager']['GetFile']();
 }
 
 export function GetHenlo() {
   return window['go']['video']['FileManager']['GetHenlo']();
+}
+
+export function GetHomeDir() {
+  return window['go']['video']['FileManager']['GetHomeDir']();
 }
 
 export function SendProgress(arg1) {

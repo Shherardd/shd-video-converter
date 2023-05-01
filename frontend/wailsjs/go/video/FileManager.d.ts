@@ -5,9 +5,13 @@ export function ChooseDirectory():Promise<string>;
 
 export function ChooseFile():Promise<string>;
 
+export function Convert():Promise<string>;
+
 export function GetFile():Promise<any>;
 
 export function GetHenlo():Promise<string>;
+
+export function GetHomeDir():Promise<string>;
 
 export function SendProgress(arg1:number):Promise<void>;
 

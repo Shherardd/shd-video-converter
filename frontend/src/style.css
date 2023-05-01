@@ -4,18 +4,27 @@
     box-sizing: border-box;
 }
 
+:root {
+    --eva-purple: #6f00a9;
+    --eva-green: #8bc34a;
+    --eva-red: #ff1744;
+    --eva-grey: #9e9e9e;
+    --eva-white: #ffffff;
+}
+
 html {
-    background-color: rgba(27, 38, 54, 1);
     font-size: 62.5%;
     scroll-behavior: smooth;
     height: 100%;
+    /*background with hex and opacity to 0.5 */
+    background: #222222dd;
 }
 
 #root{
-    background-color: #162e3b;
-    background-image: linear-gradient(0deg, #162e3b 0%, #674379 100%);
-
-    height: 100%;
+    background: linear-gradient(to bottom, #430860 0%, transparent 100%);
+    /*background-color: #162e3b;
+    background-image: linear-gradient(0deg, #162e3b 0%, RGBA(0,0,0,0) 100%);
+    */height: 100%;
 }
 
 body {

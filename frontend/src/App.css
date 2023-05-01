@@ -33,7 +33,7 @@ h1 span{
     top: -20px;
     left: -10px;
     width: calc(100% + 20px);
-    height: calc(100% + 50px);
+    height: calc(100% + 20px);
     background-color: rgba(0, 0, 0, 0.25);
     border: none;
     border-radius: 4px;
@@ -67,12 +67,12 @@ h1 span{
     padding: 1rem;
     width: 100%;
     background-color: #222;
-    color: #f99;
+    color: var(--eva-red);
     font-size: 1.5rem;
 }
 
 .input-selector-container button{
-    width: 12rem;
+    width: 16rem;
     height: 100%;
     font-size: 1.2rem;
 }
@@ -86,8 +86,8 @@ h1 span{
 }
 
 #btn-convert-file{
-    background-color: #f19;
-    color: #fff;
+    background-color: var(--eva-green);
+    color: #000;
 }
 
 #btn-convert-file:hover{
@@ -96,13 +96,13 @@ h1 span{
 }
 
 #btn-source-choose-file{
-    background-color: #fff;
+    background-color: var(--eva-green);
     color: #000;
 }
 
 #btn-source-choose-file:hover{
     cursor: pointer;
-    filter: brightness(0.8);
+    filter: brightness(1.2);
 }
 
 #btn-source-choose-file:disabled{
@@ -111,10 +111,26 @@ h1 span{
     cursor: not-allowed;
 }
 
+#btn-start-convert{
+    background-color: var(--eva-purple);
+    font-size: 1.6rem;
+    color: #fff;
+    border: none;
+    height: 30px;
+    margin: 0 20px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+#btn-start-convert:hover{
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
 .progress-bar {
     height: 5px;
     background-color: greenyellow;
     border-radius: 4px;
     transition: width 0.3s ease-in-out;
-    width: 0px;
+    width: 0;
 }
